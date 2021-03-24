@@ -12,4 +12,16 @@ public class Pessoa {
 		return "Nome : "+ nome + "\n"
 				+ "CPF: " + cpf;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		String auxCpf;
+		if(obj instanceof Pessoa) {
+			auxCpf = ((Pessoa) obj).cpf;
+			if(cpf.equals(auxCpf)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

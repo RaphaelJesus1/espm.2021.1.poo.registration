@@ -7,4 +7,8 @@ public class Gerente extends Empregado{
 		this.salario = salario;
 		this.bonus = bonus;
 	}
+	
+	public double calcularBonus() {
+		return salario * bonus;
+	}
 }
