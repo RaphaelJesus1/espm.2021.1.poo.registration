@@ -11,41 +11,62 @@ public class Main {
 		do {
 			opcao = Integer.parseInt(showInputDialog(gerarMenu()));
 			
-			switch (opcao) {
-			case 1:
-				//1. Cadastrar empregado
-				Empregado novoEmpregado = cadastrarEmpregado(pessoas);
-				if(novoEmpregado == null) { // se retornar null o empregado já havia sido cadastrado.
-					showMessageDialog(null, "O empregado já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-				} else {
-					pessoas.add(novoEmpregado);
+			if(opcao < 1 || opcao > 7) {
+				showMessageDialog(null, "Opção inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+			} else {
+				
+				switch (opcao) {
+				case 1:
+					//1. Cadastrar empregado
+					Empregado novoEmpregado = cadastrarEmpregado(pessoas);
+					if(novoEmpregado == null) { // se retornar null o empregado já havia sido cadastrado.
+						showMessageDialog(null, "O empregado já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+					} else {
+						pessoas.add(novoEmpregado);
+						showMessageDialog(null, "Operação efetuada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					}
+					break;
+				case 2:
+					//2. Cadastrar cliente
+					Cliente novoCliente = cadastrarCliente(pessoas);
+					if(novoCliente == null) { // se retornar null o cliente já havia sido cadastrado.
+						showMessageDialog(null, "O cliente já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+					} else {
+						pessoas.add(novoCliente);
+						showMessageDialog(null, "Operação efetuada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					}
+					break;
+				case 3:
+					//3. Pesquisar
+					pesquisar(pessoas);
+					break;
+				case 4:
+					//4. Listar empregados
+					break;
+				case 5:
+					//5. Listar Clientes
+					break;
+				case 6:
+					//6. Remover
+					pessoas = remover(pessoas);
 				}
-				break;
-			case 2:
-				//2. Cadastrar cliente
-				Cliente novoCliente = cadastrarCliente(pessoas);
-				if(novoCliente == null) { // se retornar null o empregado já havia sido cadastrado.
-					showMessageDialog(null, "O cliente já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-				} else {
-					pessoas.add(novoCliente);
-				}
-				break;
-			case 3:
-				//3. Pesquisar
-				pesquisar(pessoas);
-				break;
-			case 4:
-				//4. Listar empregados
-				break;
-			case 5:
-				//5. Listar Clientes
-				break;
-			case 6:
-				//6. Remover
 			}
 			
 		} while(opcao != 7);
 
+	}
+	
+	public static ArrayList<Pessoa> remover(ArrayList<Pessoa> lista) {
+		String cpf = showInputDialog("CPF").trim();
+		int i = pesquisarIndexPorCpf(cpf, lista); // identifica se o cpf consta no sistema e retorna o índice na lista
+		
+		if(i != -1) {
+			lista.remove(i);
+			showMessageDialog(null, "Operação efetuada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			showMessageDialog(null, "Pessoa não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		return lista;
 	}
 	
 	private static int pesquisarIndexPorCpf(String cpf, ArrayList<Pessoa> lista) {
@@ -68,7 +89,7 @@ public class Main {
 			}
 			showMessageDialog(null, msg); 
 		} else {
-			showMessageDialog(null, "Pessoa não encontrada", "Erro", JOptionPane.ERROR_MESSAGE); // caso não exista registro
+			showMessageDialog(null, "Pessoa não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE); // caso não exista registro
 		}
 	} 
 	
