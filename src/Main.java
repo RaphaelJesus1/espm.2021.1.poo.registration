@@ -20,7 +20,7 @@ public class Main {
 					//1. Cadastrar empregado
 					Empregado novoEmpregado = cadastrarEmpregado(pessoas);
 					if(novoEmpregado == null) { // se retornar null o empregado já havia sido cadastrado.
-						showMessageDialog(null, "O empregado já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+						showMessageDialog(null, "O CPF já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
 					} else {
 						pessoas.add(novoEmpregado);
 						showMessageDialog(null, "Operação efetuada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -30,7 +30,7 @@ public class Main {
 					//2. Cadastrar cliente
 					Cliente novoCliente = cadastrarCliente(pessoas);
 					if(novoCliente == null) { // se retornar null o cliente já havia sido cadastrado.
-						showMessageDialog(null, "O cliente já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+						showMessageDialog(null, "O CPF já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
 					} else {
 						pessoas.add(novoCliente);
 						showMessageDialog(null, "Operação efetuada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -41,10 +41,12 @@ public class Main {
 					pesquisar(pessoas);
 					break;
 				case 4:
-					//4. Listar empregados
+					//4. Listar Empregados
+					listarEmpregados(pessoas);
 					break;
 				case 5:
 					//5. Listar Clientes
+					listarClientes(pessoas);
 					break;
 				case 6:
 					//6. Remover
@@ -54,6 +56,43 @@ public class Main {
 			
 		} while(opcao != 7);
 
+	}
+	
+	public static void listarClientes(ArrayList<Pessoa> lista) {
+		String msg = "";
+		
+		if(!lista.isEmpty()) { // verifica se a lista não está vazia
+			Pessoa aux; // inicializa uma variável auxiliar
+			for(int i=0; i < lista.size(); i++) { // laço de repetição para percorrer a lista inteira
+				aux = lista.get(i); // salva a referência do próximo objeto na variável auxiliar
+				if(aux instanceof Cliente) { // se o objeto for da classe CLIENTE
+					msg += aux.toString() + "\n"; // acrescenta na mensagem					
+				}
+			}
+		}
+		// caso não exista Clientes cadastrados, ou seja, a lista esteja vazia:
+		msg = msg.equals("") ? "Não existem Clientes cadastrados." : msg; //se não, a msg permanece como montada no for()
+		
+		showMessageDialog(null, msg);
+	}
+	
+	public static void listarEmpregados(ArrayList<Pessoa> lista) {
+		String msg = "";
+		
+		if(!lista.isEmpty()) { // verifica se a lista NÃO está vazia
+			Pessoa aux; // inicializa uma variável auxiliar
+			for(int i=0; i < lista.size(); i++) { // laço de repetição para percorrer a lista inteira
+				aux = lista.get(i); // salva a referência do próximo objeto na variável auxiliar
+				if(aux instanceof Empregado) { // se o objeto for da classe EMPREGADO
+					msg += aux.toString() + "\n"; // acrescenta na mensagem					
+				}
+			}
+			
+		}
+		// caso não exista Empregados cadastrados, ou seja, a mensagem esteja vazia:
+		msg = msg.equals("") ? "Não existem Empregados cadastrados." : msg; //se não, a msg permanece como montada no for()
+		
+		showMessageDialog(null, msg);
 	}
 	
 	public static ArrayList<Pessoa> remover(ArrayList<Pessoa> lista) {
